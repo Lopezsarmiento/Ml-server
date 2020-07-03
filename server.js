@@ -1,18 +1,77 @@
 const express = require("express");
-const { default: Axios } = require("axios");
+const axios = require("axios");
 const app = express();
 
-const url =
-  "https://api.mercadolibre.com/sites/MLA/search?q=${samsung}&&limit=2";
+const baseUrl = "https://api.mercadolibre.com/";
+const limit = "&&limit=2";
+
 app.get("/", (req, res) => {
-  res.send("Wello Hor");
+  res.send("Welcome to the meli replica App server");
 });
 
-app.get("/api/v1/items", (req, res) => {
+app.get("/api/search/:query", (req, res) => {
+  const query = req.params.query;
+  const search = `sites/MLA/search?q=${query}`;
+
   async function fetchData() {
-    const { data } = await Axios.get(url);
-    console.log(data);
-    res.send(data.results);
+    try {
+      const { data } = await axios.get(`${baseUrl}${search}${limit}`);
+      res.send(data.results);
+    } catch (err) {
+      console.log("something went wrong with the api call: ", err);
+      return err;
+    }
+  }
+
+  fetchData();
+});
+
+app.get("/api/items/:id", (req, res) => {
+  const id = req.params.id;
+  const itemsUrl = `items/${id}`;
+
+  async function fetchData() {
+    try {
+      const { data } = await axios.get(`${baseUrl}${itemsUrl}`);
+      res.send(data);
+    } catch (err) {
+      console.log("something went wrong with the api call: ", err);
+      return err;
+    }
+  }
+
+  fetchData();
+});
+
+app.get("/api/items/:id/description", (req, res) => {
+  const id = req.params.id;
+  const itemsUrl = `items/${id}`;
+
+  async function fetchData() {
+    try {
+      const { data } = await axios.get(`${baseUrl}${itemsUrl}/description`);
+      res.send(data);
+    } catch (err) {
+      console.log("something went wrong with the api call: ", err);
+      return err;
+    }
+  }
+
+  fetchData();
+});
+
+app.get("/api/categories/:id", (req, res) => {
+  const id = req.params.id;
+  const itemsUrl = `categories/${id}`;
+
+  async function fetchData() {
+    try {
+      const { data } = await axios.get(`${baseUrl}${itemsUrl}`);
+      res.send(data);
+    } catch (err) {
+      console.log("something went wrong with the api call: ", err);
+      return err;
+    }
   }
 
   fetchData();

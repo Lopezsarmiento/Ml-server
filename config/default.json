@@ -1,0 +1,9 @@
+{
+  "Api": {
+    "baseUrl": "https://api.mercadolibre.com/",
+    "search": "sites/MLA/search?q=",
+    "items": "items/",
+    "categories": "categories/",
+    "limit": "&&limit=2"
+  }
+}

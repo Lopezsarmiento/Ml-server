@@ -1,16 +1,22 @@
 const error = require("./middleware/error");
+const logger = require("./middleware/logger");
 const debug = require("debug")("app:startup");
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const endpoints = require("./routes/endpoints");
 const home = require("./routes/home");
-
 const app = express();
 
 // displays process.env.NODE_ENV
 // if not set it returns development
 console.log(`app: ${app.get("env")}`);
+
+// Uncaught exceptions handling
+process.on("uncaughtException", (ex) => {
+  console.log("we have an uncaught exception");
+  logger.error(ex.message, ex);
+});
 
 // middleware functions
 // You can use app.use() to specify middleware as the callback function

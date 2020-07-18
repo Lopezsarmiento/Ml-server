@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const helmet = require("helmet");
 const endpoints = require("../routes/endpoints");
 const home = require("../routes/home");
@@ -11,6 +12,7 @@ module.exports = function (app) {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static("public"));
   app.use(helmet());
+  app.use(cors());
 
   // express endpoints routes
   app.use("/api", endpoints);

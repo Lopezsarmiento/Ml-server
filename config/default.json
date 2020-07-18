@@ -4,6 +4,6 @@
     "search": "sites/MLA/search?q=",
     "items": "items/",
     "categories": "categories/",
-    "limit": "&&limit=2"
+    "limit": "&&limit=10"
   }
 }
